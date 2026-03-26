@@ -11,6 +11,7 @@ target
 /maven-eclipse.xml
 /.java-version
 /.checkstyle
+/.coe891_artifacts/
 
 # NetBeans files
 nb-configuration.xml
