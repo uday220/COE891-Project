@@ -278,6 +278,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.
           <artifactId>apache-rat-plugin</artifactId>
           <version>${commons.rat.version}</version>
           <configuration>
+            <outputFile>target/rat.txt</outputFile>
             <inputExcludes>
               <!-- files used during tests -->
               <inputExclude>src/test/resources/**</inputExclude>
