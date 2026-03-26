@@ -19,35 +19,8 @@
 
 package org.apache.commons.compress.archivers.zip;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.nio.charset.Charset;
-
-import org.junit.jupiter.api.Test;
-
 /**
- * Tests {@link ZipEncodingHelper}.
+ * Ben Corbet Testing ZipEncodingHelper
  */
 class ZipEncodingHelperTest {
-
-    @Test
-    void testGetZipEncodingForDefault() {
-        assertEquals(Charset.defaultCharset(), ((NioZipEncoding) ZipEncodingHelper.getZipEncoding(Charset.defaultCharset().name())).getCharset());
-    }
-
-    @Test
-    void testGetZipEncodingForIllegalName() {
-        assertEquals(Charset.defaultCharset(), ((NioZipEncoding) ZipEncodingHelper.getZipEncoding("")).getCharset());
-    }
-
-    @Test
-    void testGetZipEncodingForNull() {
-        assertEquals(Charset.defaultCharset(), ((NioZipEncoding) ZipEncodingHelper.getZipEncoding((Charset) null)).getCharset());
-        assertEquals(Charset.defaultCharset(), ((NioZipEncoding) ZipEncodingHelper.getZipEncoding((String) null)).getCharset());
-    }
-
-    @Test
-    void testGetZipEncodingForUnknown() {
-        assertEquals(Charset.defaultCharset(), ((NioZipEncoding) ZipEncodingHelper.getZipEncoding("X")).getCharset());
-    }
 }

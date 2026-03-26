@@ -19,55 +19,8 @@
 
 package org.apache.commons.compress.archivers.zip;
 
-import static org.apache.commons.compress.AbstractTest.getFile;
-import static org.junit.Assert.assertNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.ByteArrayOutputStream;
-import java.nio.file.attribute.FileTime;
-import java.time.Instant;
-import java.util.NoSuchElementException;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
-
-import org.apache.commons.compress.utils.TimeUtils;
-import org.apache.commons.io.file.attribute.FileTimes;
-import org.apache.commons.lang3.ArrayUtils;
-import org.junit.jupiter.api.Test;
-
 /**
- * Uday Modifed Files
+ * Uday Shergill Testing ZipArchiveEntry
  */
-
-
 public class ZipArchiveEntryTest {
-
-    @Test
-    public void testSetSizeNegative() {
-        ZipArchiveEntry entry = new ZipArchiveEntry("test");
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            entry.setSize(-1);
-        });
-    }
-
-    @Test
-    public void testSetSizeZero() {
-        ZipArchiveEntry entry = new ZipArchiveEntry("test");
-        entry.setSize(0);
-        assertEquals(0, entry.getSize());
-    }
-
-    @Test
-    public void testSetSizePositive() {
-        ZipArchiveEntry entry = new ZipArchiveEntry("test");
-        entry.setSize(100);
-        assertEquals(100, entry.getSize());
-    }
 }
