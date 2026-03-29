@@ -19,10 +19,10 @@
 
 package org.apache.commons.compress.archivers.zip;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Uday Shergill Testing ZipArchiveEntry
@@ -51,24 +51,14 @@ public class ZipArchiveEntryTest {
     public void testSetAlignmentRejectsNonPowerOfTwo() {
         final ZipArchiveEntry entry = new ZipArchiveEntry("file.txt");
 
-        try {
-            entry.setAlignment(3);
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-            // expected
-        }
+        assertThrows(IllegalArgumentException.class, () -> entry.setAlignment(3));
     }
 
     @Test
     public void testSetAlignmentRejectsValueAboveLimit() {
         final ZipArchiveEntry entry = new ZipArchiveEntry("file.txt");
 
-        try {
-            entry.setAlignment(65_536);
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-            // expected
-        }
+        assertThrows(IllegalArgumentException.class, () -> entry.setAlignment(65_536));
     }
 
     @Test

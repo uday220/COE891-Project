@@ -20,13 +20,12 @@
 package org.apache.commons.compress.archivers.tar;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-class TarUtilsTest {
+public class TarUtilsTest {
 
     @Test
     public void testFormatUnsignedOctalStringFormatsZero() {
@@ -50,12 +49,7 @@ class TarUtilsTest {
     public void testFormatUnsignedOctalStringRejectsOverflow() {
         final byte[] buffer = new byte[7];
 
-        try {
-            TarUtils.formatUnsignedOctalString(017777777L, buffer, 0, buffer.length);
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-            // expected
-        }
+        assertThrows(IllegalArgumentException.class, () -> TarUtils.formatUnsignedOctalString(017777777L, buffer, 0, buffer.length));
     }
 
     @Test
