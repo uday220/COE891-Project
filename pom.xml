@@ -392,6 +392,12 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+          <includes>
+            <include>**/*Test.java</include>
+            <include>**/*Tests.java</include>
+            <include>**/*TestCase.java</include>
+            <include>**/*Suite.java</include>
+          </includes>
           <systemPropertyVariables>
             <pax.exam.karaf.version>${karaf.version}</pax.exam.karaf.version>
             <commons-compress.version>${project.version}</commons-compress.version>
@@ -401,6 +407,16 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.
             <!-- TODO Run this test separately, in a second execution, which doesn't seem to work -->
             <exclude>**/SevenZReadSubStreamsInfoTest.java</exclude>
           </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>io.github.zju-aces-ise</groupId>
+        <artifactId>chatunitest-maven-plugin</artifactId>
+        <version>2.1.1</version>
+        <configuration>
+          <apiKeys>dummy-key</apiKeys>
+          <model>codeqwen:v1.5-chat</model>
+          <url>http://localhost:11434/v1/chat/completions</url>
         </configuration>
       </plugin>
       <plugin>
