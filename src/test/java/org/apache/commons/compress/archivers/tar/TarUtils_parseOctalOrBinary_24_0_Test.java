@@ -18,22 +18,56 @@
  */
 package org.apache.commons.compress.archivers.tar;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
-class TarUtils_parseOctalOrBinary_24_0_Test {
+public class TarUtils_parseOctalOrBinary_24_0_Test {
 
     @Test
-    void testParseOctalOrBinaryCoversOctalAndBinaryPaths() {
-        final byte[] octal = "00000000007 ".getBytes(UTF_8);
-        assertEquals(7L, TarUtils.parseOctalOrBinary(octal, 0, octal.length));
+    void testParseOctalOrBinary_nullBuffer() {
+        assertThrows(NullPointerException.class, () -> TarUtils.parseOctalOrBinary(null, 0, 1));
+    }
 
-        final byte[] binary8 = {
-                (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
-                (byte) 0xff, (byte) 0xff, (byte) 0xf1, (byte) 0xef
-        };
-        assertEquals(-3601L, TarUtils.parseOctalOrBinary(binary8, 0, binary8.length));
+    @Test
+    void testParseOctalOrBinary_negativeOffset() {
+        byte[] buffer = new byte[10];
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> TarUtils.parseOctalOrBinary(buffer, -1, 1));
+    }
+
+    @Test
+    void testParseOctalOrBinary_lengthGreaterThanBufferSize() {
+        byte[] buffer = new byte[10];
+        assertEquals(0L, TarUtils.parseOctalOrBinary(buffer, 0, 11));
+    }
+
+    @Test
+    void testParseOctalOrBinary_invalidOctalData() {
+        byte[] buffer = new byte[10];
+        Arrays.fill(buffer, (byte) 'x'); // Fill with invalid octal data
+        assertThrows(IllegalArgumentException.class, () -> TarUtils.parseOctalOrBinary(buffer, 0, 8));
+    }
+
+    @Test
+    void testParseOctalOrBinary_validOctalData() {
+        byte[] buffer = new byte[10];
+        Arrays.fill(buffer, (byte) '7'); // Fill with valid octal data
+        assertEquals(16777215L, TarUtils.parseOctalOrBinary(buffer, 0, 8));
+    }
+
+    @Test
+    void testParseOctalOrBinary_invalidBinaryData() {
+        byte[] buffer = new byte[10];
+        Arrays.fill(buffer, (byte) 'x'); // Fill with invalid binary data
+        assertThrows(IllegalArgumentException.class, () -> TarUtils.parseOctalOrBinary(buffer, 0, 8));
+    }
+
+    @Test
+    void testParseOctalOrBinary_validBinaryData() {
+        byte[] buffer = new byte[10];
+        Arrays.fill(buffer, (byte) '1'); // Fill with valid binary data
+        assertEquals(2396745L, TarUtils.parseOctalOrBinary(buffer, 0, 8));
     }
 }

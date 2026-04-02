@@ -18,22 +18,36 @@
  */
 package org.apache.commons.compress.archivers.zip;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 class ZipArchiveEntry_setAlignment_59_0_Test {
 
     @Test
-    void testSetAlignment() {
-        final ZipArchiveEntry entry = new ZipArchiveEntry("file.txt");
+    void testSetAlignmentValidValues() {
+        ZipArchiveEntry entry = new ZipArchiveEntry("test");
 
-        entry.setAlignment(0);
-        assertEquals(0, entry.getAlignment());
+        entry.setAlignment(2);
+        assertEquals(2, entry.getAlignment());
+
+        entry.setAlignment(4);
+        assertEquals(4, entry.getAlignment());
 
         entry.setAlignment(8);
         assertEquals(8, entry.getAlignment());
 
+        entry.setAlignment(0);
+        assertEquals(0, entry.getAlignment());
+    }
+
+    @Test
+    void testSetAlignmentInvalidValues() {
+        ZipArchiveEntry entry = new ZipArchiveEntry("test");
+
         assertThrows(IllegalArgumentException.class, () -> entry.setAlignment(3));
+        assertThrows(IllegalArgumentException.class, () -> entry.setAlignment(-2));
         assertThrows(IllegalArgumentException.class, () -> entry.setAlignment(65536));
     }
 }
